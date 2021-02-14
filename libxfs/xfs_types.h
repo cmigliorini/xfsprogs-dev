@@ -5,6 +5,7 @@
  */
 #ifndef __XFS_TYPES_H__
 #define	__XFS_TYPES_H__
+#include <stdbool.h>
 
 typedef uint32_t	prid_t;		/* project ID */
 
