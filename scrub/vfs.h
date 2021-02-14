@@ -16,4 +16,13 @@ bool scan_fs_tree(struct scrub_ctx *ctx, scan_fs_tree_dir_fn dir_fn,
 
 void fstrim(struct scrub_ctx *ctx);
 
+#ifndef FITRIM
+struct fstrim_range {
+	__u64 start;
+	__u64 len;
+	__u64 minlen;
+};
+#define FITRIM		_IOWR('X', 121, struct fstrim_range)	/* Trim */
+#endif
+
 #endif /* XFS_SCRUB_VFS_H_ */
