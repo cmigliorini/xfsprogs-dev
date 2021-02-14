@@ -28,18 +28,13 @@
 #define __BIG_ENDIAN	BIG_ENDIAN
 #define __LITTLE_ENDIAN	LITTLE_ENDIAN
 
-#include <sys/syscall.h>
-# ifndef SYS_fsctl
-#  define SYS_fsctl	242
-# endif
-
 #ifndef XATTR_LIST_MAX
 #define XATTR_LIST_MAX  65536
 #endif
 
 static __inline__ int xfsctl(const char *path, int fd, int cmd, void *p)
 {
-	return syscall(SYS_fsctl, path, cmd, p, 0);
+	return fsctl(path, cmd, p, 0);
 }
 
 static __inline__ int platform_test_xfs_fd(int fd)
@@ -154,11 +149,12 @@ platform_discard_blocks(int fd, uint64_t start, uint64_t len)
  * the timerid things are useless - we have only one ITIMER_REAL
  * timer.
  */
+#ifndef CLOCK_REALTIME
 #define CLOCK_REALTIME ITIMER_REAL
+#endif
 #define itimerspec itimerval
 typedef uint64_t timer_t;
 typedef double   timer_c;
-typedef clock_id_t clockid_t;
 
 
 static inline int timer_create (clockid_t __clock_id,
@@ -299,5 +295,13 @@ struct fsxattr {
 #ifndef FS_XFLAG_COWEXTSIZE
 #define FS_XFLAG_COWEXTSIZE	0x00010000	/* CoW extent size allocator hint */
 #endif
+
+#ifndef HAVE_MAP_SYNC
+#define MAP_SYNC 0
+#define MAP_SHARED_VALIDATE 0
+#else
+#include <asm-generic/mman.h>
+#include <asm-generic/mman-common.h>
+#endif /* HAVE_MAP_SYNC */
 
 #endif	/* __XFS_DARWIN_H__ */
