@@ -10,6 +10,7 @@
 #include "path.h"
 #include "space.h"
 #include "input.h"
+#include "../scrub/vfs.h"
 
 static cmdinfo_t trim_cmd;
 
