@@ -210,7 +210,9 @@ static inline bool WARN_ON_ONCE(bool expr) {
  */
 #define prandom_u32()		0
 
+#ifndef PAGE_SIZE
 #define PAGE_SIZE		getpagesize()
+#endif
 
 #define inode_peek_iversion(inode)	(inode)->i_version
 #define inode_set_iversion_queried(inode, version) do { \
