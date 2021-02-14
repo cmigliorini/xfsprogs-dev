@@ -64,12 +64,21 @@ dump_raw_stat(struct stat *st)
 	printf("stat.ino = %llu\n", (unsigned long long)st->st_ino);
 	printf("stat.size = %lld\n", (long long)st->st_size);
 	printf("stat.blocks = %lld\n", (long long)st->st_blocks);
+#if defined(__APPLE__)
+	printf("stat.atime.tv_sec = %ld\n", st->st_atimespec.tv_sec);
+	printf("stat.atime.tv_nsec = %ld\n", st->st_atimespec.tv_nsec);
+	printf("stat.ctime.tv_sec = %ld\n", st->st_ctimespec.tv_sec);
+	printf("stat.ctime.tv_nsec = %ld\n", st->st_ctimespec.tv_nsec);
+	printf("stat.mtime.tv_sec = %ld\n", st->st_mtimespec.tv_sec);
+	printf("stat.mtime.tv_nsec = %ld\n", st->st_mtimespec.tv_nsec);
+#else /* __APPLE__ */
 	printf("stat.atime.tv_sec = %ld\n", st->st_atim.tv_sec);
 	printf("stat.atime.tv_nsec = %ld\n", st->st_atim.tv_nsec);
 	printf("stat.ctime.tv_sec = %ld\n", st->st_ctim.tv_sec);
 	printf("stat.ctime.tv_nsec = %ld\n", st->st_ctim.tv_nsec);
 	printf("stat.mtime.tv_sec = %ld\n", st->st_mtim.tv_sec);
 	printf("stat.mtime.tv_nsec = %ld\n", st->st_mtim.tv_nsec);
+#endif
 	printf("stat.rdev_major = %u\n", major(st->st_rdev));
 	printf("stat.rdev_minor = %u\n", minor(st->st_rdev));
 	printf("stat.dev_major = %u\n", major(st->st_dev));

@@ -115,6 +115,8 @@ typedef signed long long int	__s64;
 #define int64_t		int64_t
 
 typedef off_t		xfs_off_t;
+typedef off_t		off64_t;
+typedef off_t		loff_t;
 typedef uint64_t	xfs_ino_t;
 typedef uint32_t	xfs_dev_t;
 typedef int64_t		xfs_daddr_t;
