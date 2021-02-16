@@ -77,5 +77,9 @@ cscope.*
 
 # generated crc files
 /libfrog/crc32selftest
+/libfrog/crc32selftest.dSYM
 /libfrog/crc32table.h
 /libfrog/gen_crc32table
+/libfrog/gen_crc32table.dSYM
+.DS_Store
+
